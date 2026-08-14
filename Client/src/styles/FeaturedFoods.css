@@ -1,0 +1,23 @@
+.featured-foods {
+  width: 90%;
+  max-width: 1300px;
+  margin: 80px auto;
+}
+
+.featured-foods h2 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.featured-foods p {
+  color: var(--text-light);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}

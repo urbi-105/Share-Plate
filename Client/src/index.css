@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Colors */
+  --primary: #5F7F1A;
+  --secondary: #A9D52B;
+  --accent: #FFE16A;
+  --orange: #FF9F4A;
+
+  --background: #F8FAF5;
+  --surface: #FFFFFF;
+
+  --text-dark: #2F2F2F;
+  --text-light: #6C757D;
+
+  --shadow: 0 6px 20px rgba(0,0,0,.05);
+
+  --radius: 20px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--background);
+  color: var(--text-dark);
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Fraunces", serif;
+  color: var(--primary);
+}
+img {
+  width: 100%;
+  display: block;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: var(--radius);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  font-family: inherit;
+  transition: 0.3s;
+}
+

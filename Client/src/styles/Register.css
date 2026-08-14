@@ -1,0 +1,42 @@
+/* =====================================================
+   REGISTER PAGE
+   ===================================================== */
+
+.register-form {
+  max-height: none;
+}
+
+
+/* Success message */
+
+.success-message {
+  margin-bottom: 18px;
+
+  padding: 10px 14px;
+
+  border-radius: 8px;
+
+  background: #eef7e8;
+
+  color: #4f7d32;
+
+  font-size: 13px;
+}
+
+
+/* Slightly smaller form spacing */
+
+.register-form .form-group {
+  margin-bottom: 15px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 800px) {
+
+  .register-form {
+    padding-top: 40px;
+  }
+
+}
