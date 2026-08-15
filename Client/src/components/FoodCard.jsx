@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/FoodCard.css";
+import { formatDate, formatTime } from "../utils/formatDate";
 
 function FoodCard({ food }) {
   return (
@@ -8,7 +9,7 @@ function FoodCard({ food }) {
       <img
         src={
           food.image ||
-          "https://placehold.co/600x400?text=SharePlate+Food"
+          "https://placehold.co/600x400?text=SharePlate"
         }
         alt={food.name}
         className="food-image"
@@ -16,31 +17,45 @@ function FoodCard({ food }) {
 
       <div className="food-info">
 
-        <h3>{food.name}</h3>
+        <div className="food-header">
+          <h3>{food.name}</h3>
+
+          <span className={`food-status ${food.status}`}>
+            {food.status}
+          </span>
+        </div>
 
         {food.category && (
           <p className="food-category">
-            {food.category}
+            🍽 {food.category}
           </p>
         )}
 
-        <p>
-          📍 {food.area}
-        </p>
+        {food.description && (
+          <p className="food-description">
+            {food.description.length > 80
+              ? food.description.substring(0, 80) + "..."
+              : food.description}
+          </p>
+        )}
 
-        <p>
-          🍱 Serves {food.quantity} people
-        </p>
+        <div className="food-meta">
 
-        <p>
-          ⏰ Pickup Before {food.pickup_time}
-        </p>
+          <p>📍 {food.area}</p>
+
+          <p>🍱 {food.quantity}</p>
+
+          <p>📅 {formatDate(food.pickup_date)}</p>
+
+          <p>⏰ {formatTime(food.pickup_time)}</p>
+
+        </div>
 
         <Link
           to={`/food/${food.id}`}
           className="food-details-btn"
         >
-          View Details
+          View Details →
         </Link>
 
       </div>

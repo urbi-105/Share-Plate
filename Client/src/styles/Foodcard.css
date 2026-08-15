@@ -1,14 +1,16 @@
 .food-card {
   background: white;
-  border-radius: 20px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  transition: 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  transition: .3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .food-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
 }
 
 .food-image {
@@ -18,33 +20,89 @@
 }
 
 .food-info {
-  padding: 18px;
+  padding: 20px;
 }
 
-.food-info h3 {
-  color: var(--primary);
-  margin-bottom: 8px;
+.food-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.food-info p {
-  margin: 4px 0;
-  color: var(--text-light);
-  font-size: 0.95rem;
-  line-height: 1.4;
+.food-header h3 {
+  margin: 0;
+  color: #6b8e23;
+  font-size: 22px;
 }
 
-.food-info button {
-  margin-top: 16px;
-  width: 100%;
-  padding: 12px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
+.food-category {
+  color: #666;
   font-weight: 600;
+  margin-bottom: 12px;
 }
 
-.food-info button:hover {
-  background: #5f7f18;
+.food-description {
+  color: #777;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.food-meta p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.food-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: white;
+}
+
+.food-status.available {
+  background: #28a745;
+}
+
+.food-status.requested {
+  background: #ff9800;
+}
+
+.food-status.collected {
+  background: #007bff;
+}
+
+.food-status.expired {
+  background: #dc3545;
+}
+
+.food-details-btn {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: none;
+  background: #6b8e23;
+  color: white;
+  padding: 12px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.food-details-btn:hover {
+  background: #59781c;
+}
+
+@media (max-width:768px) {
+  .food-image {
+    height: 200px;
+  }
+
+  .food-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }

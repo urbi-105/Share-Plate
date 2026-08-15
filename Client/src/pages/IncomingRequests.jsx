@@ -265,14 +265,14 @@ function IncomingRequests() {
                   <div>
                     <span>📅 Pickup Date</span>
                     <strong>
-                      {request.pickup_date}
+                      {formatDate(request.pickup_date)}
                     </strong>
                   </div>
 
                   <div>
                     <span>⏰ Pickup Time</span>
                     <strong>
-                      {request.pickup_time}
+                      {formatTime(request.pickup_time)}
                     </strong>
                   </div>
 

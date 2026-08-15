@@ -1,313 +1,65 @@
 .food-details-page {
-  min-height: calc(100vh - 70px);
-
-  padding: 70px 8%;
-
   background: #f7f9f3;
-
-  box-sizing: border-box;
+  min-height: calc(100vh - 70px);
+  padding: 50px 20px;
 }
 
 .food-details-container {
-  width: 100%;
-
   max-width: 1100px;
-
-  margin: 0 auto;
-
+  margin: auto;
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-
-  gap: 50px;
-
-  padding: 35px;
-
-  box-sizing: border-box;
-
+  gap: 40px;
   background: white;
-
-  border-radius: 25px;
-
-  box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.07);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
 }
 
-.food-details-image-wrapper {
+.details-image {
   width: 100%;
-}
-
-.food-details-image {
-  width: 100%;
-
-  height: 450px;
-
+  border-radius: 15px;
   object-fit: cover;
-
-  border-radius: 20px;
-
-  display: block;
 }
 
-.food-details-content {
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-}
-
-.food-details-category {
-  display: inline-block;
-
-  width: fit-content;
-
-  padding: 7px 14px;
-
-  border-radius: 20px;
-
-  background: #edf3df;
-
+.details-info h1 {
   color: #6b8e23;
-
-  font-size: 13px;
-
-  font-weight: 600;
-
   margin-bottom: 15px;
 }
 
-.food-details-content h1 {
-  margin: 0 0 15px;
-
-  font-family: "Fraunces", serif;
-
-  font-size: 2.8rem;
-
-  line-height: 1.15;
-
-  color: #333;
+.details-info p {
+  margin: 10px 0;
+  color: #555;
 }
 
-.food-description {
-  margin: 0 0 25px;
-
-  color: #777;
-
-  line-height: 1.7;
-
-  font-size: 15px;
-}
-
-.food-info-list {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 12px;
-
-  margin-bottom: 30px;
-}
-
-.food-info-item {
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 20px;
-
-  padding: 13px 0;
-
-  border-bottom: 1px solid #eeeeee;
-
-  font-size: 14px;
-}
-
-.food-info-item span {
-  color: #777;
-}
-
-.food-info-item strong {
-  color: #333;
-
-  text-align: right;
-}
-
-.food-details-actions {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 12px;
-}
-
-.request-food-btn {
-  width: 100%;
-
-  padding: 14px 25px;
-
-  border: none;
-
-  border-radius: 30px;
-
-  background: #6b8e23;
-
-  color: white;
-
-  font-size: 15px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: 0.3s;
-}
-
-.request-food-btn:hover {
-  background: #5f7f18;
-
-  transform: translateY(-1px);
-}
-
-.back-food-btn {
-  text-align: center;
-
-  padding: 12px 20px;
-
-  border-radius: 30px;
-
-  color: #6b8e23;
-
-  background: #edf3df;
-
-  text-decoration: none;
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  transition: 0.3s;
-}
-
-.back-food-btn:hover {
-  background: #e2ebd0;
-}
-
-.food-details-message {
-  max-width: 600px;
-
-  margin: 80px auto;
-
-  padding: 35px;
-
-  background: white;
-
-  border-radius: 18px;
-
-  text-align: center;
-
-  color: #666;
-
-  box-shadow:
-    0 8px 25px
-    rgba(0, 0, 0, 0.06);
-}
-
-.food-details-message a {
+.status {
   display: inline-block;
-
-  margin-top: 15px;
-
-  color: #6b8e23;
-
-  font-weight: 600;
-
-  text-decoration: none;
+  margin-bottom: 20px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #28a745;
+  color: white;
+  text-transform: capitalize;
 }
 
-.food-details-message.error {
-  color: #b42318;
+.request-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 25px;
+  background: #6b8e23;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-@media (max-width: 850px) {
+.request-btn:hover {
+  background: #59781c;
+}
+
+@media (max-width: 900px) {
   .food-details-container {
     grid-template-columns: 1fr;
-
-    gap: 30px;
   }
-
-  .food-details-image {
-    height: 350px;
-  }
-}
-
-@media (max-width: 500px) {
-  .food-details-page {
-    padding: 40px 20px;
-  }
-
-  .food-details-container {
-    padding: 20px;
-
-    border-radius: 18px;
-  }
-
-  .food-details-image {
-    height: 280px;
-  }
-
-  .food-details-content h1 {
-    font-size: 2.2rem;
-  }
-
-  .food-info-item {
-    flex-direction: column;
-
-    gap: 5px;
-  }
-
-  .food-info-item strong {
-    text-align: left;
-  }
-}
-
-.request-success {
-  margin-bottom: 20px;
-
-  padding: 12px 15px;
-
-  border-radius: 10px;
-
-  background: #edf7e2;
-
-  color: #4f7215;
-
-  font-size: 14px;
-
-  line-height: 1.5;
-}
-
-.request-error {
-  margin-bottom: 20px;
-
-  padding: 12px 15px;
-
-  border-radius: 10px;
-
-  background: #fff1f0;
-
-  color: #b42318;
-
-  font-size: 14px;
-
-  line-height: 1.5;
-}
-
-.request-food-btn:disabled {
-  opacity: 0.6;
-
-  cursor: not-allowed;
-
-  transform: none;
 }

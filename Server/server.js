@@ -5,11 +5,11 @@ const cors = require("cors");
 
 const db = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
-
+const dashboardRoutes = require("./routes/dashboardRoutes");
 const authenticateToken = require("./middleware/authMiddleware");
-
 const foodRoutes = require("./routes/foodRoutes");
 const requestRoutes = require("./routes/requestRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 
@@ -20,6 +20,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/foods", foodRoutes);
 app.use("/api/requests", requestRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/api/auth/test", authenticateToken, (req, res) => {
   res.json({

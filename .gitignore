@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+Client/node_modules/
+Server/node_modules/
+
+Client/dist/
+Server/dist/
+
+.env
+Server/.env
+
+.vscode/

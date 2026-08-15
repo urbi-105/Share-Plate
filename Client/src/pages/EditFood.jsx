@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/ShareFood.css";
 
-function ShareFood() {
+function EditFood() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  const [foodData, setFoodData] = useState({
     name: "",
     category: "",
     description: "",
@@ -18,9 +19,30 @@ function ShareFood() {
     image: "",
   });
 
+  useEffect(() => {
+    fetchFood();
+  }, []);
+
+  const fetchFood = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/foods/${id}`
+      );
+
+      setFoodData({
+        ...response.data.food,
+        pickup_date: response.data.food.pickup_date
+          ?.split("T")[0],
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Failed to load food details.");
+    }
+  };
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFoodData({
+      ...foodData,
       [e.target.name]: e.target.value,
     });
   };
@@ -31,9 +53,9 @@ function ShareFood() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.post(
-        "http://localhost:5000/api/foods",
-        formData,
+      const response = await axios.put(
+        `http://localhost:5000/api/foods/${id}`,
+        foodData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,26 +65,13 @@ function ShareFood() {
 
       alert(response.data.message);
 
-      setFormData({
-        name: "",
-        category: "",
-        description: "",
-        quantity: "",
-        area: "",
-        pickup_date: "",
-        pickup_time: "",
-        pickup_address: "",
-        image: "",
-      });
-
       navigate("/my-foods");
-
     } catch (error) {
       console.error(error);
 
       alert(
         error.response?.data?.message ||
-        "Failed to share food."
+          "Failed to update food."
       );
     }
   };
@@ -71,10 +80,10 @@ function ShareFood() {
     <section className="share-food-page">
 
       <div className="share-header">
-        <h1>Share Your Extra Food</h1>
+        <h1>Edit Food</h1>
 
         <p>
-          Help reduce food waste by donating your extra food.
+          Update your shared food information.
         </p>
       </div>
 
@@ -93,9 +102,8 @@ function ShareFood() {
             <input
               type="text"
               name="name"
-              value={formData.name}
+              value={foodData.name}
               onChange={handleChange}
-              placeholder="Chicken Biryani"
               required
             />
           </div>
@@ -105,7 +113,7 @@ function ShareFood() {
 
             <select
               name="category"
-              value={formData.category}
+              value={foodData.category}
               onChange={handleChange}
             >
               <option value="">Select Category</option>
@@ -124,9 +132,8 @@ function ShareFood() {
             <input
               type="number"
               name="quantity"
-              value={formData.quantity}
+              value={foodData.quantity}
               onChange={handleChange}
-              placeholder="8"
               required
             />
           </div>
@@ -136,7 +143,7 @@ function ShareFood() {
 
             <select
               name="area"
-              value={formData.area}
+              value={foodData.area}
               onChange={handleChange}
               required
             >
@@ -160,9 +167,8 @@ function ShareFood() {
           <textarea
             rows="5"
             name="description"
-            value={formData.description}
+            value={foodData.description || ""}
             onChange={handleChange}
-            placeholder="Describe the food..."
           />
         </div>
 
@@ -176,7 +182,7 @@ function ShareFood() {
             <input
               type="date"
               name="pickup_date"
-              value={formData.pickup_date}
+              value={foodData.pickup_date}
               onChange={handleChange}
               required
             />
@@ -188,7 +194,7 @@ function ShareFood() {
             <input
               type="time"
               name="pickup_time"
-              value={formData.pickup_time}
+              value={foodData.pickup_time}
               onChange={handleChange}
               required
             />
@@ -202,9 +208,8 @@ function ShareFood() {
           <input
             type="text"
             name="pickup_address"
-            value={formData.pickup_address}
+            value={foodData.pickup_address}
             onChange={handleChange}
-            placeholder="House 12, Road 5, Mirpur"
             required
           />
         </div>
@@ -215,9 +220,8 @@ function ShareFood() {
           <input
             type="text"
             name="image"
-            value={formData.image}
+            value={foodData.image || ""}
             onChange={handleChange}
-            placeholder="https://example.com/image.jpg"
           />
         </div>
 
@@ -226,7 +230,7 @@ function ShareFood() {
           <button
             type="button"
             className="cancel-btn"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/my-foods")}
           >
             Cancel
           </button>
@@ -235,7 +239,7 @@ function ShareFood() {
             type="submit"
             className="submit-btn"
           >
-            Share Food
+            Update Food
           </button>
 
         </div>
@@ -246,4 +250,4 @@ function ShareFood() {
   );
 }
 
-export default ShareFood;
+export default EditFood;

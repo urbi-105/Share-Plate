@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import FoodCard from "../components/FoodCard";
 import "../styles/FoodFeed.css";
@@ -7,6 +8,8 @@ function FoodFeed() {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search") || "";
 
   const fetchFoods = async () => {
     try {
@@ -14,7 +17,7 @@ function FoodFeed() {
       setError("");
 
       const response = await axios.get(
-        "http://localhost:5000/api/foods"
+      `http://localhost:5000/api/foods?search=${search}`
       );
 
       setFoods(response.data.foods);
@@ -32,8 +35,8 @@ function FoodFeed() {
   };
 
   useEffect(() => {
-    fetchFoods();
-  }, []);
+  fetchFoods();
+  }, [search]);
 
   return (
     <section className="food-feed-page">

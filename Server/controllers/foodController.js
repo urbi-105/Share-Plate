@@ -1,10 +1,5 @@
 const db = require("../config/db");
 
-// =====================================================
-// CREATE / SHARE FOOD
-// POST /api/foods
-// =====================================================
-
 const createFood = (req, res) => {
   const {
     name,
@@ -18,10 +13,8 @@ const createFood = (req, res) => {
     image,
   } = req.body;
 
-  // Get donor ID from logged-in user
   const donor_id = req.user.id;
 
-  // Check required fields
   if (
     !name ||
     !quantity ||
@@ -68,6 +61,10 @@ const createFood = (req, res) => {
   ];
 
   db.query(sql, values, (err, result) => {
+    console.log("VALUES:", values);
+  console.log("ERROR:", err);
+  console.log("RESULT:", result);
+  
     if (err) {
       console.error("Create food error:", err);
 
@@ -85,13 +82,9 @@ const createFood = (req, res) => {
   });
 };
 
-
-// =====================================================
-// GET ALL AVAILABLE FOODS
-// GET /api/foods
-// =====================================================
-
 const getAllFoods = (req, res) => {
+  const search = req.query.search || "";
+
   const sql = `
     SELECT
       id,
@@ -109,31 +102,36 @@ const getAllFoods = (req, res) => {
       created_at
     FROM foods
     WHERE status = 'available'
+    AND (
+      name LIKE ?
+      OR category LIKE ?
+      OR area LIKE ?
+    )
     ORDER BY created_at DESC
   `;
 
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error("Get foods error:", err);
+  const keyword = `%${search}%`;
 
-      return res.status(500).json({
-        success: false,
-        message: "Failed to retrieve foods.",
+  db.query(
+    sql,
+    [keyword, keyword, keyword],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+
+        return res.status(500).json({
+          success: false,
+          message: "Failed to retrieve foods.",
+        });
+      }
+
+      res.json({
+        success: true,
+        foods: results,
       });
     }
-
-    return res.status(200).json({
-      success: true,
-      foods: results,
-    });
-  });
+  );
 };
-
-
-// =====================================================
-// GET SINGLE FOOD
-// GET /api/foods/:id
-// =====================================================
 
 const getFoodById = (req, res) => {
   const { id } = req.params;
@@ -181,12 +179,6 @@ const getFoodById = (req, res) => {
   });
 };
 
-
-// =====================================================
-// GET MY FOODS
-// GET /api/foods/my-foods
-// =====================================================
-
 const getMyFoods = (req, res) => {
   const donor_id = req.user.id;
 
@@ -227,11 +219,98 @@ const getMyFoods = (req, res) => {
   });
 };
 
+// ==========================================
+// UPDATE FOOD
+// PUT /api/foods/:id
+// ==========================================
 
-// =====================================================
-// UPDATE FOOD STATUS
-// PATCH /api/foods/:id/status
-// =====================================================
+const updateFood = (req, res) => {
+  const { id } = req.params;
+
+  const donor_id = req.user.id;
+
+  const {
+    name,
+    category,
+    description,
+    quantity,
+    area,
+    pickup_date,
+    pickup_time,
+    pickup_address,
+    image,
+  } = req.body;
+
+  // Required fields
+  if (
+    !name ||
+    !quantity ||
+    !area ||
+    !pickup_date ||
+    !pickup_time ||
+    !pickup_address
+  ) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide all required food information.",
+    });
+  }
+
+  const sql = `
+    UPDATE foods
+    SET
+      name = ?,
+      category = ?,
+      description = ?,
+      quantity = ?,
+      area = ?,
+      pickup_date = ?,
+      pickup_time = ?,
+      pickup_address = ?,
+      image = ?
+    WHERE id = ?
+    AND donor_id = ?
+  `;
+
+  db.query(
+    sql,
+    [
+      name,
+      category || null,
+      description || null,
+      quantity,
+      area,
+      pickup_date,
+      pickup_time,
+      pickup_address,
+      image || null,
+      id,
+      donor_id,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("Update food error:", err);
+
+        return res.status(500).json({
+          success: false,
+          message: "Failed to update food.",
+        });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "Food not found.",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Food updated successfully.",
+      });
+    }
+  );
+};
 
 const updateFoodStatus = (req, res) => {
   const { id } = req.params;
@@ -281,24 +360,19 @@ const updateFoodStatus = (req, res) => {
   });
 };
 
-
-// =====================================================
-// DELETE FOOD
-// DELETE /api/foods/:id
-// =====================================================
-
 const deleteFood = (req, res) => {
-  const { id } = req.params;
-  const donor_id = req.user.id;
+  const foodId = req.params.id;
+  const donorId = req.user.id;
 
   const sql = `
     DELETE FROM foods
-    WHERE id = ? AND donor_id = ?
+    WHERE id = ?
+    AND donor_id = ?
   `;
 
-  db.query(sql, [id, donor_id], (err, result) => {
+  db.query(sql, [foodId, donorId], (err, result) => {
     if (err) {
-      console.error("Delete food error:", err);
+      console.error(err);
 
       return res.status(500).json({
         success: false,
@@ -309,27 +383,23 @@ const deleteFood = (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({
         success: false,
-        message: "Food not found or you are not authorized to delete it.",
+        message: "Food not found.",
       });
     }
 
-    return res.status(200).json({
+    res.json({
       success: true,
       message: "Food deleted successfully.",
     });
   });
 };
 
-
-// =====================================================
-// EXPORT CONTROLLERS
-// =====================================================
-
 module.exports = {
   createFood,
   getAllFoods,
   getFoodById,
   getMyFoods,
+  updateFood,
   updateFoodStatus,
   deleteFood,
 };

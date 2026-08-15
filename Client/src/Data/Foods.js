@@ -1,5 +1,3 @@
-// src/data/foods.js
-
 import Food1 from "../assets/images/Food1.jpg";
 import Food2 from "../assets/images/Food2.jpg";
 import Food3 from "../assets/images/Food3.jpg";

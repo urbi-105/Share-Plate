@@ -1,17 +1,10 @@
 const db = require("../config/db");
 
-// =====================================================
-// CREATE FOOD REQUEST
-// POST /api/requests
-// =====================================================
-
 const createRequest = (req, res) => {
   const { food_id, message } = req.body;
 
-  // Logged-in NGO
   const ngo_id = req.user.id;
 
-  // Check food ID
   if (!food_id) {
     return res.status(400).json({
       success: false,
@@ -19,7 +12,6 @@ const createRequest = (req, res) => {
     });
   }
 
-  // Check whether food exists and is available
   const checkFoodSql = `
     SELECT id, status
     FROM foods
@@ -50,7 +42,6 @@ const createRequest = (req, res) => {
       });
     }
 
-    // Create request
     const sql = `
       INSERT INTO food_requests
       (
@@ -84,11 +75,6 @@ const createRequest = (req, res) => {
   });
 };
 
-
-// =====================================================
-// GET MY REQUESTS
-// GET /api/requests/my-requests
-// =====================================================
 
 const getMyRequests = (req, res) => {
   const ngo_id = req.user.id;
@@ -137,7 +123,6 @@ const getMyRequests = (req, res) => {
   });
 };
 
-// Get requests received for donor's foods
 const getIncomingRequests = (req, res) => {
   const donor_id = req.user.id;
 
@@ -192,7 +177,6 @@ const getIncomingRequests = (req, res) => {
   });
 };
 
-// Update request status
 const updateRequestStatus = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -240,10 +224,6 @@ const updateRequestStatus = (req, res) => {
     });
   });
 };
-
-// =====================================================
-// EXPORT
-// =====================================================
 
 module.exports = {
   createRequest,
