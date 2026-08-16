@@ -1,14 +1,14 @@
-import Food1 from "../assets/images/Food1.jpg";
-import Food2 from "../assets/images/Food2.jpg";
-import Food3 from "../assets/images/Food3.jpg";
-import Food4 from "../assets/images/Food4.jpg";
-import Food5 from "../assets/images/Food5.jpg";
-import Food6 from "../assets/images/Food6.jpg";
+import ChickenBiriyani from "../assets/images/Chicken biriyani.jpg";
+import VegetableRice from "../assets/images/Vegetable rice.png";
+import BreadCake from "../assets/images/Bread & Cake.png";
+import Khichuri from "../assets/images/Khichuri.png";
+import Sandwich from "../assets/images/Sandwich.png";
+import VegetableCurry from "../assets/images/Vegetable curry.png";
 
 const foods = [
   {
     id: 1,
-    image: Food1,
+    image: ChickenBiriyani,
     name: "Chicken Biryani",
     category: "Biryani",
     area: "Mirpur",
@@ -17,7 +17,7 @@ const foods = [
   },
   {
     id: 2,
-    image: Food2,
+    image: VegetableRice,
     name: "Vegetable Rice",
     category: "Rice",
     area: "Dhanmondi",
@@ -26,7 +26,7 @@ const foods = [
   },
   {
     id: 3,
-    image: Food3,
+    image: BreadCake,
     name: "Bread & Cake",
     category: "Bread",
     area: "Uttara",
@@ -35,7 +35,7 @@ const foods = [
   },
   {
     id: 4,
-    image: Food4,
+    image: Khichuri,
     name: "Khichuri",
     category: "Rice",
     area: "Mohammadpur",
@@ -44,7 +44,7 @@ const foods = [
   },
   {
     id: 5,
-    image: Food5,
+    image: Sandwich,
     name: "Sandwich",
     category: "Snacks",
     area: "Banani",
@@ -53,7 +53,7 @@ const foods = [
   },
   {
     id: 6,
-    image: Food6,
+    image: VegetableCurry,
     name: "Vegetable Curry",
     category: "Curry",
     area: "Gulshan",

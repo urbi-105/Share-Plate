@@ -41,15 +41,25 @@ function FoodCard({ food }) {
 
         <div className="food-meta">
 
-          <p>📍 {food.area}</p>
+  <p>📍 {food.area}</p>
 
-          <p>🍱 {food.quantity}</p>
+  <p>🍱 {food.quantity || food.serves} Serves</p>
 
-          <p>📅 {formatDate(food.pickup_date)}</p>
+  <p>
+    📅{" "}
+    {food.pickup_date
+      ? formatDate(food.pickup_date)
+      : "Today"}
+  </p>
 
-          <p>⏰ {formatTime(food.pickup_time)}</p>
+  <p>
+    ⏰{" "}
+    {food.pickup_time
+      ? formatTime(food.pickup_time)
+      : food.time}
+  </p>
 
-        </div>
+</div>
 
         <Link
           to={`/food/${food.id}`}
